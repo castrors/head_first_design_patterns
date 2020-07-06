@@ -5,6 +5,7 @@ class RemoteControl{
   //You can use Function instead of Command :)
   List<Command> onCommands;
   List<Command> offCommands;
+  Command undoCommand;
 
   RemoteControl(){
     onCommands = List<Command>(7);
@@ -14,6 +15,8 @@ class RemoteControl{
       onCommands[i] = (){} ;
       offCommands[i] = (){};
     }
+
+    undoCommand = (){};
   }
 
   void setCommand(int slot, Command onCommand, Command offCommand){
@@ -23,10 +26,16 @@ class RemoteControl{
 
   void onButtonWasPushed(int slot){
     onCommands[slot].call();
+    undoCommand = offCommands[slot];
   }
 
   void offButtonWasPushed(int slot){
     offCommands[slot].call();
+    undoCommand = onCommands[slot];
+  }
+
+  void undoButtonWasPushed() {
+    undoCommand.call();
   }
 
   @override

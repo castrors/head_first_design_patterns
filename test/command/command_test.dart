@@ -53,6 +53,8 @@ void main() {
       expect(garageDoor.isOpen, true);
       remoteControl.offButtonWasPushed(4);
       expect(garageDoor.isOpen, false);
+      remoteControl.undoButtonWasPushed();
+      expect(garageDoor.isOpen, true);
       remoteControl.onButtonWasPushed(5);
     });
   });
